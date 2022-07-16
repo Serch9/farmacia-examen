@@ -1,3 +1,65 @@
 .fondo {
-    
+    background: #193A65;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.imagen {
+    display: flex;
+    align-Items: center;
+    justify-Content: center;
+}
+
+.textoLogin {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.017em;
+    /* Blanco */
+    color: #FFFFFF;
+}
+
+.estiloBotonEye {
+    float: right;
+    margin-top: -38px;
+    position: relative;
+    z-index: 2;
+}
+
+.estiloEye {
+    color: black;
+    margin-left: -2rem;
+    border: #FFFFFF;
+}
+
+.estiloEye:hover {
+    background-color: transparent !important;
+    color: blue;
+    border: #FFFFFF !important;
+}
+
+.estiloEye:focus{
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: #FFFFFF !important;
+}
+
+.marginBottom {
+    margin-bottom: 5rem;
+}
+
+.botonLogin {
+    background: #4F83F1 !important;
+    color: white;
+    width: 90%;
+    border-radius: 0.6rem;
+    font-size: 20px !important;
+    border-color: #4F83F1 !important;
+    font-style: normal;
+    font-weight: 700;
 }

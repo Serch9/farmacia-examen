@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Link as Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,9 +10,10 @@ const App = () => {
 
   return (
     <Router>
-      <Switch>
-        <Route exact path={["/", "/login"]} component={Login} />
-      </Switch>
+      <Routes>
+        <Route exact path="/login" element={<Login/>} />
+        <Route exact path="/" element={<Login/>} />
+      </Routes>
     </Router>
   );
 }
