@@ -17,6 +17,7 @@ const Login = (props) => {
     const [passwordType, setPasswordType] = useState("password");
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useSelector(state => state.auth);
+    const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
 
     /*Función para cambiar el tipo de Input de la contraseña*/
@@ -47,7 +48,7 @@ const Login = (props) => {
             dispatch(login(username, password))
             .then(() => {
                 /*URL a la que se direccionará al ingresar al sistema, se deberá complementar*/
-                props.history.push("/?");
+                props.history.push("/inicio");
                 window.location.reload();
             })
             .catch(() => {
@@ -57,10 +58,6 @@ const Login = (props) => {
             setLoading(false);
         }
     };
-    /*En caso de que se haya iniciado sesión se mandará a la página home del sistema, se deberá complementar*/
-    if (isLoggedIn) {
-        return <Navigate to="/?" />;
-    }
 
     return (
         <div className='fondo'>
@@ -73,14 +70,14 @@ const Login = (props) => {
                     <Form className="row-login-form" onSubmit={handleLogin}>
                         <Form.Group>
                             <div className="col-md-12 pe-5 ps-5 mt-3">
-                                <label className='textoLogin pb-2' for="username">Usuario</label>
+                                <label className='textoLogin pb-2' htmlFor="username">Usuario</label>
                                 <input type="text" className="form-control" id="username" name="username"
                                 placeholder="Ingrese Usuario" value={username} onChange={onChangeUsername}/>
                             </div>
                         </Form.Group>
                         <Form.Group className="mb-5">
                             <div className="col-md-12 pe-5 ps-5 mt-4">
-                                <label className='textoLogin pb-2' for="password">Contraseña</label>
+                                <label className='textoLogin pb-2' htmlFor="password">Contraseña</label>
                                 <input type={passwordType} className="form-control" id="password" name="password"
                                 placeholder="Ingrese Contraseña" value={password} onChange={onChangePassword}/>
                                 <div className="input-group-btn estiloBotonEye">
@@ -94,7 +91,7 @@ const Login = (props) => {
                             <div className="col-md-7">
                             </div>
                             <Row className="col-md-5">
-                                <button type="submit" className="btn-lg botonLogin" /*disabled={loading}*/>
+                                <button type="submit" className="btn-lg botonLogin" disabled={loading}>
                                 {loading && (
                                     <span className="spinner-border spinner-border-sm"></span>
                                 )}
@@ -102,6 +99,13 @@ const Login = (props) => {
                                 </button>
                             </Row>
                         </Row>
+                        {message && (
+                            <Form.Group className="me-1 ms-1">
+                                <div className="alert alert-danger" role="alert">
+                                    {message}
+                                </div>
+                            </Form.Group>
+                        )}
                     </Form>
                 </div>
                 <div className='col-md-4'></div>

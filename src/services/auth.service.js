@@ -8,7 +8,8 @@ const login = (username, password) => {
             password,
         })
         .then((response) => {
-            if (response.data.accessToken) {
+            console.log(response.data.user.usuarioValido)
+            if (response.data.user.usuarioValido === "OK") {
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
             return response.data;
