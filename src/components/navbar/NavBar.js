@@ -1,13 +1,19 @@
 import React from 'react';
+import { useDispatch } from "react-redux";
 import { Nav, Navbar } from 'react-bootstrap';
 import { Logout } from '@mui/icons-material';
 
 import LogoSVG from '../imagenes/Okeio2.svg';
 
+import { logout } from "../../actions/auth";
+
 import './NavBar.css';
 
 const NavBar = () => {
-
+    const dispatch = useDispatch();
+    const logOut = () => {
+        dispatch(logout());
+    };
     return (
         <Nav id='navbar' variant='pills'>
             <Navbar.Brand href="">
@@ -15,7 +21,7 @@ const NavBar = () => {
             </Navbar.Brand>
 
             <Nav.Item className='mx-5' id='logout-item'>
-                <Nav.Link href="" id='logout-icon' onClick={() => { }}>
+                <Nav.Link href="/login" id='logout-icon' onClick={logOut}>
                     <Logout sx={{ fontSize: 50 }} />
                 </Nav.Link>
             </Nav.Item>
