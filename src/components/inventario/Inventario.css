@@ -54,3 +54,47 @@ table th:last-child{
     background: #EBEAEC;
     border-radius: 100%;
 }
+.boton-modal{
+    width: 40%;
+    margin: 0.5em;
+}
+.text-header-modal{
+    font-family: 'DIN Alternate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.017em;
+}
+.tamaño-modal .modal-dialog{
+    max-width: 300px;
+}
+.text-input{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.017em;
+}
+.input-style{
+    background: #FFFFFF;
+    border: 1.5px solid #C2C2C2;
+    border-radius: 10px;
+    padding: 0.5em 1em
+}
+.boton-cancelar{
+    background: #FFFFFF;
+    border: 1.5px solid #4F83F1;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    color: #4F83F1;
+}
+.boton-aceptar{
+    background: #4F83F1;
+    border-radius: 10px;
+}

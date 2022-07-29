@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Ver from '../imagenes/Iconos/ICONOS9.svg';
 import compra from '../imagenes/Iconos/Iconos5.svg';
 import inventario from '../imagenes/Iconos/Iconos1.svg';
@@ -104,19 +105,30 @@ class Inventario extends React.Component {
                     </Table>
                 </div>                 
             </div>
-            <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal className="tamaño-modal" show={this.state.show} onHide={this.handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title className="text-header-modal">¿Usted desea actualizar la cantidad de stock en venta de este producto?</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={this.handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label className="text-input">Producto</Form.Label>
+                            <Form.Control className="input-style" type="email" placeholder="Medicamento1" disabled />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label className="text-input">Stock</Form.Label>
+                            <Form.Control className="input-style" type="number" min="0"placeholder="Cantidad de venta" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Button className="boton-modal boton-aceptar" variant="primary" onClick={this.handleClose}>
+                                Aceptar
+                            </Button>
+                            <Button className="boton-modal boton-cancelar" variant="secondary" onClick={this.handleClose}>
+                                Cancelar
+                            </Button>
+                        </Form.Group>                        
+                    </Form>
+                </Modal.Body>
             </Modal>
         </div>
       );
