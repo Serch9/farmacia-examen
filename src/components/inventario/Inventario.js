@@ -43,6 +43,9 @@ class Inventario extends React.Component {
         )
         // this.state.show = true;
     }
+    handleVer(e){
+        window.location = "/ver"
+    }
     headers = ["ID","Status","Producto","Sustancia Activa","Categoría","Precio","Stock","Acciones"];
     render() {
       return (
@@ -94,7 +97,7 @@ class Inventario extends React.Component {
                                     <td className="p-3" >{element.precio}</td>
                                     <td className="p-3" >{element.existencia}</td>
                                     <td>
-                                        <img className="icon" src={Ver} ></img>
+                                        <img className="icon" src={Ver} onClick={this.handleVer}></img>
                                         <img className="icon" src={aumentarStock} onClick={this.handleStock}></img>
                                         <img className="icon" src={Editar} ></img>
                                         <img className="icon" src={Borrar} ></img>

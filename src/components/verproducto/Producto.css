@@ -1,0 +1,18 @@
+.boton-return{
+    background: #4F83F1;
+    border-radius: 10px;
+}
+.text-title{
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.017em;
+}
+.text-content{
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: -0.017em;
+    color: #36323E;
+}
+.ver-producto .table tr td{
+    border-bottom-width: 0px;
+}
