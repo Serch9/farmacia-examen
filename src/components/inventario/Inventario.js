@@ -41,10 +41,12 @@ class Inventario extends React.Component {
         this.setState(
             {show:true}
         )
-        // this.state.show = true;
     }
     handleVer(e){
         window.location = "/ver"
+    }
+    handleEdit(e){
+        window.location = "/editar"
     }
     headers = ["ID","Status","Producto","Sustancia Activa","Categoría","Precio","Stock","Acciones"];
     render() {
@@ -99,7 +101,7 @@ class Inventario extends React.Component {
                                     <td>
                                         <img className="icon" src={Ver} onClick={this.handleVer}></img>
                                         <img className="icon" src={aumentarStock} onClick={this.handleStock}></img>
-                                        <img className="icon" src={Editar} ></img>
+                                        <img className="icon" src={Editar} onClick={this.handleEdit}></img>
                                         <img className="icon" src={Borrar} ></img>
                                     </td>
                                 </tr>

@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
+import {editarProducto} from '../../actions/editar'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 
@@ -11,18 +12,21 @@ import axios from 'axios';
 import { API_PORTAL_URL } from '../../constants';
 
 import NavBar from '../navbar/NavBar';
-import './Alta.css';
+import './Editar.css';
 
 
-const Alta = () => {
-    const [nombre, setNombre] = React.useState('');
-    const [categoria, setCategoria] = React.useState('Medicamento');
-    const [sustancia, setSustancia] = React.useState('');
-    const [receta, setReceta] = React.useState(false);
-    const [cantidad, setCantidad] = React.useState('');
-    const [precio, setPrecio] = React.useState('');
-    const [stock, setStock] = React.useState(0);
-    const [descripcion, setDescripcion] = React.useState('');
+const Editar = () => {
+    console.log("----------------------------------------------------------------")
+    const producto = editarProducto()();
+    console.log(producto)
+    const [nombre, setNombre] = React.useState(producto.nombre);
+    const [categoria, setCategoria] = React.useState(producto.categoria);
+    const [sustancia, setSustancia] = React.useState(producto.sustancia_activa);
+    const [receta, setReceta] = React.useState(producto.receta_obligatoria === 'S'? true: false);
+    const [cantidad, setCantidad] = React.useState(producto.porcion);
+    const [precio, setPrecio] = React.useState(producto.precio);
+    const [stock, setStock] = React.useState(producto.existencia);
+    const [descripcion, setDescripcion] = React.useState(producto.descripcion);
 
     const categorias = [
         {
@@ -78,7 +82,9 @@ const Alta = () => {
     function descripcionOnChange(event) {
         setDescripcion(event.target.value);
     }
-
+    function handlerCancel(e){
+        window.location = "/inventario"
+    }
     function onSubmit(e) {
         e.preventDefault();
 
@@ -255,8 +261,9 @@ const Alta = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
-                                <Button className='btn px-5' type="submit" variant="contained">Agregar</Button>
+                            <Col className="d-flex justify-content-center">
+                                <Button className='btn px-5 m-3' type="submit" variant="contained">Aceptar</Button>
+                                <Button className='btn px-5 m-3' onClick={handlerCancel} variant="contained">Cancelar</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -266,4 +273,4 @@ const Alta = () => {
         </div>);
 }
 
-export default Alta;
+export default Editar;
