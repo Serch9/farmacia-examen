@@ -2,7 +2,8 @@ import React, { useState }from 'react';
 import NavBar from '../navbar/NavBar';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import {verProd} from '../../actions/producto';
+import axios from 'axios';
+import { API_PORTAL_URL } from '../../constants';
 import Medicamento1 from '../imagenes/Productos/1.jpeg';
 import './Producto.css'
 
@@ -10,11 +11,21 @@ import './Producto.css'
 class Ver extends React.Component {
     constructor(props) {
         super(props);
+        const query = new URLSearchParams(props.location.search);
         this.state = {
-            prod: verProd()(),
-        }; 
-        console.log(this.state.prod)       
-      }
+            prod: "",
+            id: query.get("id")
+        };
+        axios.post(API_PORTAL_URL + 'ver',
+            {
+                id:this.state.id
+            })
+            .then(response=>{
+                this.setState({
+                    prod: response.data.productos
+                })
+            })
+    }
     handleReturn(e){
         window.location = "/inventario"
     }
@@ -35,7 +46,7 @@ class Ver extends React.Component {
                         </td>
                         <td rowspan="4">
                             <p className="text-title" >Imagen del Producto</p>
-                            <img width="400" heigth="400" src={this.state.prod.ruta_imagen}></img>
+                            <img width="400" heigth="400" src={Medicamento1}></img>
                         </td>
                     </tr>
                     <tr>

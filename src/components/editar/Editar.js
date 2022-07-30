@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import {editarProducto} from '../../actions/editar'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 
@@ -15,18 +14,19 @@ import NavBar from '../navbar/NavBar';
 import './Editar.css';
 
 
-const Editar = () => {
-    console.log("----------------------------------------------------------------")
-    const producto = editarProducto()();
-    console.log(producto)
-    const [nombre, setNombre] = React.useState(producto.nombre);
-    const [categoria, setCategoria] = React.useState(producto.categoria);
-    const [sustancia, setSustancia] = React.useState(producto.sustancia_activa);
-    const [receta, setReceta] = React.useState(producto.receta_obligatoria === 'S'? true: false);
-    const [cantidad, setCantidad] = React.useState(producto.porcion);
-    const [precio, setPrecio] = React.useState(producto.precio);
-    const [stock, setStock] = React.useState(producto.existencia);
-    const [descripcion, setDescripcion] = React.useState(producto.descripcion);
+const Editar = (props) => {
+    const query = new URLSearchParams(props.location.search);
+    console.log(query.get("nombre"))
+    const [nombre, setNombre] = React.useState(query.get("nombre"));
+    const [id, setId] = React.useState(query.get("id"));
+    const [categoria, setCategoria] = React.useState(query.get("categoria"));
+    const [sustancia, setSustancia] = React.useState(query.get("sustancia"));
+    const [receta, setReceta] = React.useState(query.get("receta") ? true: false);
+    const [cantidad, setCantidad] = React.useState(query.get("cantidad"));
+    const [precio, setPrecio] = React.useState(query.get("precio"));
+    const [stock, setStock] = React.useState(query.get("stock"));
+    const [descripcion, setDescripcion] = React.useState(query.get("descripcion"));
+
 
     const categorias = [
         {
@@ -98,7 +98,7 @@ const Editar = () => {
         console.log(descripcion);
 
         //Llamada POST para agregar el producto
-        axios.post(API_PORTAL_URL + 'new/product',
+        axios.put(API_PORTAL_URL + '/actualizar/producto/'+ id,
             {
                 nombre: nombre,
                 sustancia_activa: sustancia,
@@ -106,12 +106,11 @@ const Editar = () => {
                 precio: precio,
                 existencia: stock,
                 porcion: cantidad,
-                estatus: '1',
-                receta_obligatoria: receta ? 'S' : 'N',
+                receta_obligatoria: receta ? 1 : 0,
                 descripcion: descripcion,
-                ruta_imagen: '',
             }
         ).then((response) => {
+            window.location = "/inventario"
             console.log(response);
         });
     }

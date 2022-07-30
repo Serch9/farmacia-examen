@@ -22,7 +22,10 @@ class Inventario extends React.Component {
         this.state = {
             listaInv: [],
             show:false,
-            showDelete: false
+            showDelete: false,
+            producto:{},
+            value: "",
+            elementDelete: 0
         };
         axios.get(API_PORTAL_URL + '/inventario')
         .then(response=>{
@@ -34,7 +37,9 @@ class Inventario extends React.Component {
         this.handleStock = this.handleStock.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleCloseDelete = this.handleCloseDelete.bind(this);
-        console.log(this.state.listaInv)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleDeleteDelete = this.handleDeleteDelete.bind(this);
+        // console.log(this.state.listaInv)
       }
     handleClick(e){
         window.location = "/alta"
@@ -45,27 +50,60 @@ class Inventario extends React.Component {
             show:false
         })
     }
+    handleSaveStock(producto){
+        this.setState({
+            show:false
+        })
+        axios.put(API_PORTAL_URL + '/actualizar/'+ producto.id,{
+            "stock":  this.state.value
+        })
+        .then(response=>{
+            console.log(response)
+            window.location = "/inventario";
+        })
+        console.log(producto.id,producto.existencia)
+    }
     handleCloseDelete(e){
         this.setState({
             showDelete: false
         })
     }
-    handleDelete(e){
+    handleDelete(id){
         this.setState(
-            {showDelete:true}
+            {
+                showDelete:true,
+                elementDelete: id
+            }
         )
     }
-    handleStock(e){
+    handleStock(stock,productoSeleccion){
+        console.log(productoSeleccion)
+        this.setState(
+            {value:stock,
+             show:true,
+             producto:productoSeleccion
+            }
+        )
+    }
+    handleVer(element){
+        const id = element.id;
+        console.log(id)
+        window.location = "/ver?id="+id;
+    }
+    handleEdit(element){
+        console.log(element)
+        window.location = `/editar?id= ${element.id}&nombre=${element.nombre}&categoria=${element.categoria}&sustancia=${element.sustancia_activa}&receta=${element.receta_obligatoria}&cantidad=${element.porcion}&precio=${element.precio}&stock=${element.existencia}&descripcion=${element.descripcion}`;
+    }
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+    handleDeleteDelete(e){
+        axios.delete(API_PORTAL_URL + '/eliminar/producto/'+ this.state.elementDelete)
+        .then(response=>{
+            console.log(response)
+            window.location = "/inventario";
+        })
         console.log(e)
-        this.setState(
-            {show:true}
-        )
-    }
-    handleVer(e){
-        window.location = "/ver"
-    }
-    handleEdit(e){
-        window.location = "/editar"
     }
     headers = ["ID","Status","Producto","Sustancia Activa","Categoría","Precio","Stock","Acciones"];
     render() {
@@ -118,10 +156,10 @@ class Inventario extends React.Component {
                                     <td className="p-3" >{element.precio}</td>
                                     <td className="p-3" >{element.existencia}</td>
                                     <td>
-                                        <img className="icon" src={Ver} onClick={this.handleVer}></img>
-                                        <img className="icon" src={aumentarStock} onClick={this.handleStock}></img>
-                                        <img className="icon" src={Editar} onClick={this.handleEdit}></img>
-                                        <img className="icon" src={Borrar} onClick={this.handleDelete}></img>
+                                        <img className="icon" src={Ver} onClick={()=>this.handleVer(element)}></img>
+                                        <img className="icon" src={aumentarStock} onClick={()=>this.handleStock(element.existencia,element)}></img>
+                                        <img className="icon" src={Editar} onClick={()=>this.handleEdit(element)}></img>
+                                        <img className="icon" src={Borrar} onClick={()=>this.handleDelete(element.id)}></img>
                                     </td>
                                 </tr>
                             ))}
@@ -141,10 +179,10 @@ class Inventario extends React.Component {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label className="text-input">Stock</Form.Label>
-                            <Form.Control className="input-style" type="number" min="0"placeholder="Cantidad de venta" />
+                            <Form.Control onChange={this.handleChange} value={this.state.value} className="input-style" type="number" min="0" placeholder="Cantidad de venta" />
                         </Form.Group>
                         <Form.Group>
-                            <Button className="boton-modal boton-aceptar" variant="primary" onClick={this.handleClose}>
+                            <Button className="boton-modal boton-aceptar" variant="primary" onClick={()=>this.handleSaveStock(this.state.producto)}>
                                 Aceptar
                             </Button>
                             <Button className="boton-modal boton-cancelar" variant="secondary" onClick={this.handleClose}>
@@ -161,7 +199,7 @@ class Inventario extends React.Component {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Button className="boton-modal boton-aceptar" variant="primary" onClick={this.handleCloseDelete}>
+                            <Button className="boton-modal boton-aceptar" variant="primary" onClick={this.handleDeleteDelete}>
                                 Aceptar
                             </Button>
                             <Button className="boton-modal boton-cancelar" variant="secondary" onClick={this.handleCloseDelete}>
