@@ -1,8 +1,8 @@
 import React, { useState }from 'react';
 import NavBar from '../navbar/NavBar';
 import Nav from 'react-bootstrap/Nav';
-import { listaInventario} from '../../actions/inventario'
-import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+import { API_PORTAL_URL } from '../../constants';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
@@ -20,11 +20,20 @@ class Inventario extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            listaInv: listaInventario()(),
-            show:false
+            listaInv: [],
+            show:false,
+            showDelete: false
         };
+        axios.get(API_PORTAL_URL + '/inventario')
+        .then(response=>{
+            this.setState({
+                listaInv: response.data.productos
+            })
+        })
         this.handleClose = this.handleClose.bind(this);
         this.handleStock = this.handleStock.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleCloseDelete = this.handleCloseDelete.bind(this);
         console.log(this.state.listaInv)
       }
     handleClick(e){
@@ -35,6 +44,16 @@ class Inventario extends React.Component {
         this.setState({
             show:false
         })
+    }
+    handleCloseDelete(e){
+        this.setState({
+            showDelete: false
+        })
+    }
+    handleDelete(e){
+        this.setState(
+            {showDelete:true}
+        )
     }
     handleStock(e){
         console.log(e)
@@ -102,7 +121,7 @@ class Inventario extends React.Component {
                                         <img className="icon" src={Ver} onClick={this.handleVer}></img>
                                         <img className="icon" src={aumentarStock} onClick={this.handleStock}></img>
                                         <img className="icon" src={Editar} onClick={this.handleEdit}></img>
-                                        <img className="icon" src={Borrar} ></img>
+                                        <img className="icon" src={Borrar} onClick={this.handleDelete}></img>
                                     </td>
                                 </tr>
                             ))}
@@ -129,6 +148,23 @@ class Inventario extends React.Component {
                                 Aceptar
                             </Button>
                             <Button className="boton-modal boton-cancelar" variant="secondary" onClick={this.handleClose}>
+                                Cancelar
+                            </Button>
+                        </Form.Group>                        
+                    </Form>
+                </Modal.Body>
+            </Modal>
+            <Modal className="tamaño-modal" show={this.state.showDelete} onHide={this.handleCloseDelete}>
+                <Modal.Header closeButton>
+                <Modal.Title className="text-header-modal">¿Usted desea cancelar la comanda de este comensal?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group>
+                            <Button className="boton-modal boton-aceptar" variant="primary" onClick={this.handleCloseDelete}>
+                                Aceptar
+                            </Button>
+                            <Button className="boton-modal boton-cancelar" variant="secondary" onClick={this.handleCloseDelete}>
                                 Cancelar
                             </Button>
                         </Form.Group>                        

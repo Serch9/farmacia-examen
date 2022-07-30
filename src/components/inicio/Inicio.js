@@ -1,8 +1,8 @@
 import React from 'react';
 import NavBar from '../navbar/NavBar';
 import Nav from 'react-bootstrap/Nav';
-import {listaInicio} from '../../actions/dashboard'
-import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+import { API_PORTAL_URL } from '../../constants';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -11,21 +11,26 @@ import compra from '../imagenes/Iconos/Iconos5.svg';
 import inventario from '../imagenes/Iconos/Iconos1.svg';
 import favoritos from '../imagenes/Iconos/Iconos3.svg';
 import './Inicio.css'
-
 class Inicio extends React.Component {
-    
     constructor() {
         super();
+        
         this.state = {
-            lista: listaInicio()(),
+            lista: [],
         };
-      }
-    render() {
+        axios.get(API_PORTAL_URL + '/inicio')
+        .then(response=>{
+            this.setState({
+                lista: response.data.productos
+            })
+        })
+    }
+    render() {   
       return (
         <div>
             <NavBar></NavBar>
             <div className="d-flex bd-highlight">
-                <div className="p-2 flex-fill bd-highlight">
+                <div className="p-2 flex-fill bd-highlight tamaño-nav">
                     <Nav defaultActiveKey="/inicio" className="flex-column alto-compra-inventario">
                         <Nav.Link className="hover-image" href="/inicio">
                             <Card className="box-shadow-compra-inventario">

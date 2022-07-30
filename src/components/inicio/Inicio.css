@@ -24,7 +24,7 @@
     filter: invert(47%) sepia(13%) saturate(7389%) hue-rotate(204deg) brightness(100%) contrast(90%);
 }
 .scroll-alto{
-    height:36%;
+    height:730px;
 }
 .scroll-alto::-webkit-scrollbar {
     width: 6px;               /* width of the entire scrollbar */
