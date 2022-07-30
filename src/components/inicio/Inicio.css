@@ -21,7 +21,13 @@
 .imagen-favorito{
     width:48px;
     height:48px;
+    cursor: pointer;
+}
+.blue{
     filter: invert(47%) sepia(13%) saturate(7389%) hue-rotate(204deg) brightness(100%) contrast(90%);
+}
+.gray{
+    filter: invert(99%) sepia(7%) saturate(429%) hue-rotate(184deg) brightness(94%) contrast(96%);
 }
 .scroll-alto{
     height:730px;
@@ -54,4 +60,40 @@ body{
 .lista-compra{
     height: 37%;
     border: 1px solid #193A65;
+}
+.espacio-compra{
+    width: 2000px;
+}
+.show-compra{
+    width: 300px;
+    display: flex;
+}
+.hide{
+    width: 300px;
+    display: none;
+}
+.nombre-prod{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+}
+.precio-prod{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    margin-left: 1em;
+}
+.comprar-lista{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.felicidades{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 40px;
+    color: #4F83F1;
 }
