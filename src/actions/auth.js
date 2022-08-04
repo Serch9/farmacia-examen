@@ -8,7 +8,7 @@ import {
   } from "./types";
   import AuthService from "../services/auth.service";
 
-/Función Dispatch para el Login/
+//Función Dispatch para el Login/
 export const login = (username, password) => (dispatch) => {
     return AuthService.login(username, password).then(
         (data) => {
@@ -37,7 +37,7 @@ export const login = (username, password) => (dispatch) => {
     );
 };
 
-/Función Dispatch para el Logout/
+//Función Dispatch para el Logout/
 export const logout = () => (dispatch) => {
     AuthService.logout();
     dispatch({
