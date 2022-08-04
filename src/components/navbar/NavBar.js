@@ -16,7 +16,7 @@ const NavBar = () => {
     };
     return (
         <Nav id='navbar' variant='pills'>
-            <Navbar.Brand href="/inicio">
+            <Navbar.Brand href="">
                 <img className='align-left' src={LogoSVG} alt='Logo Okeio' height={200} width={500} />
             </Navbar.Brand>
 

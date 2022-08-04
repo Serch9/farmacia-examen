@@ -113,7 +113,7 @@ const Alta = () => {
     return (
         <div>
             <NavBar></NavBar>
-            <Row className='m-1'>
+            <Row className='m-5'>
                 <Col className='my-3 mx-5'>
                     <Form onSubmit={onSubmit}>
                         <Row>
