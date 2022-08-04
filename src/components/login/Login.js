@@ -10,17 +10,17 @@ import { login } from "../../actions/auth";
 import '../login/Login.css'
 
 const Login = (props) => {
-    /Constante y Use state para almacenar el usuario y contraseña/
+    //Constante y Use state para almacenar el usuario y contraseña/
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    /Const para cambiar el tipo de Input al presionar el icono del Ojo/
+    //Const para cambiar el tipo de Input al presionar el icono del Ojo/
     const [passwordType, setPasswordType] = useState("password");
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
 
-    /Función para cambiar el tipo de Input de la contraseña/
+    //Función para cambiar el tipo de Input de la contraseña/
     const togglePassword = (e) => {
         e.preventDefault();
         if(passwordType === "password") {
@@ -29,12 +29,12 @@ const Login = (props) => {
         }
         setPasswordType("password");
     }
-    /Función para detectar el cambio de valor en el input del usuario y almacenarlo/
+    //Función para detectar el cambio de valor en el input del usuario y almacenarlo/
     const onChangeUsername = (e) => {
         const username = e.target.value;
         setUsername(username);
     };
-    /Función para detectar el cambio de valor en el input de la contraseña y almacenarla/
+    //Función para detectar el cambio de valor en el input de la contraseña y almacenarla/
     const onChangePassword = (e) => {
         const password = e.target.value;
         setPassword(password);
@@ -44,10 +44,10 @@ const Login = (props) => {
         e.preventDefault();
         setLoading(true);
         if (username && password) {
-            /Se mandan los datos a la función para iniciar sesión/
+            //Se mandan los datos a la función para iniciar sesión/
             dispatch(login(username, password))
             .then(() => {
-                /URL a la que se direccionará al ingresar al sistema, se deberá complementar/
+                //URL a la que se direccionará al ingresar al sistema, se deberá complementar/
                 props.history.push("/inicio");
                 window.location.reload();
             })
