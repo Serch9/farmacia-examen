@@ -6,6 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import axios from 'axios';
 import { API_PORTAL_URL } from '../../constants';
@@ -23,6 +25,8 @@ const Alta = () => {
     const [precio, setPrecio] = React.useState('');
     const [stock, setStock] = React.useState(0);
     const [descripcion, setDescripcion] = React.useState('');
+
+    const navigate = useHistory()
 
     const categorias = [
         {
@@ -107,6 +111,8 @@ const Alta = () => {
             }
         ).then((response) => {
             console.log(response);
+            navigate.goBack()
+            toast.success('Producto agregado con éxito')
         });
     }
 

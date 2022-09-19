@@ -1,0 +1,72 @@
+.Invetario__content {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  gap: 10px;
+}
+
+.Inventario__table {
+  width: -webkit-fill-available;
+}
+
+.Inventario__table-headers {
+  /* background-color: var(--primary-color); */
+  border-radius: 10px 10px 0px 0px;
+  font-size: 20px;
+}
+
+.Inventario__table-row {
+  height: 64px;
+  border-radius: 18px;
+}
+
+.Inventario__table-row-shadow {
+  background-color: #F3F8FD;
+}
+
+.Inventario__link {
+  height: -webkit-fill-available;
+  padding-top: 16px;
+}
+
+.Inventario__lastColumn {
+  width: 100px;
+}
+
+.Inventario__estatus-activo {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background-color: #00DEFA;
+}
+
+.Inventario__estatus-inactivo {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background-color: #EBEAEC;
+}
+
+.Inventario__table-actions {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  width:fit-content;
+}
+
+.Inventario__table-headers th {
+  color: white;
+  background-color: var(--primary-color);
+  text-align: center;
+}
+
+.Inventario__table th {
+  text-align: center;
+}
+
+tr:first-child td:first-child { border-top-left-radius: 10px; }
+tr:first-child td:last-child { border-top-right-radius: 10px; }
+
+tr:last-child td:first-child { border-bottom-left-radius: 10px; }
+tr:last-child td:last-child { border-bottom-right-radius: 10px; }

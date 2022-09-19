@@ -1,0 +1,21 @@
+.EliminarProducto__modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: -webkit-fill-available;
+}
+
+.EliminarProducto__modal-text {
+  text-align: center;
+  width: 202px;
+  font-size: 16px;
+  margin: 0
+}
+
+.EliminarProducto__modal-actions {
+  display: flex;
+  width: -webkit-fill-available;
+  gap: 8px;
+  margin-top: 12px;
+}

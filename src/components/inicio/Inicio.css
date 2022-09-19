@@ -1,0 +1,52 @@
+.Inicio__products {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-left: 20px;
+  overflow: overlay;
+}
+
+.Inicio__products::-webkit-scrollbar {
+  display: none;
+}
+
+.Inicio__product-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 458px;
+  width: 343px;
+  border-radius: 0px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 24px 24px;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.Inicio__product-name {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.017em;
+}
+
+.Inicio__product-star {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.Inicio__product-img {
+  width: 240px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.Inicio__producto-add-icon {
+  width: 32px;
+  height: 32px;
+}

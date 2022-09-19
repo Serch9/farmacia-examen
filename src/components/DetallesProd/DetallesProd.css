@@ -1,0 +1,29 @@
+.DetProd__content {
+  padding: 70px 120px;
+}
+
+.DetProd__label {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+
+.DetProd__text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #36323E;
+  padding: 8px 16px;
+}
+
+.DetProd__col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 33%;
+}
+
+.DetProd__last-col {
+  justify-content: space-between;
+}

@@ -1,3 +1,8 @@
+#root {
+  width: 100%;
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +40,15 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.container-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* height: 100%; */
+  height: -webkit-fill-available;
+  padding: 24px;
+  gap: 10px;
+  max-height: calc(100% - 210px);
 }
