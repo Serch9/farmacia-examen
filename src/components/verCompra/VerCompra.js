@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState, useEffect } from "react";
 import { Row, Col, Form } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -6,26 +6,50 @@ import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
-import { useHistory, useParams  } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { API_PORTAL_URL } from '../../constants';
 
-
 import NavBar from '../navbar/NavBar';
-import './Alta.css';
 
 
-const Alta = () => {
+
+export const VerCompra = () => {
     const {id} = useParams();
-  
-    const [nombre, setNombre] = React.useState('');
-    const [categoria, setCategoria] = React.useState('Medicamento');
-    const [sustancia, setSustancia] = React.useState('');
-    const [receta, setReceta] = React.useState(false);
-    const [cantidad, setCantidad] = React.useState('');
-    const [precio, setPrecio] = React.useState('');
-    const [stock, setStock] = React.useState(0);
-    const [descripcion, setDescripcion] = React.useState('');
+        console.log(window.location.href.includes('ver'))
+        const {ver} = window.location.href.includes('ver');
+        console.log(ver)
+        const url = API_PORTAL_URL + "/getOne/"+id;
+        const [todos, setTodos] = useState();
+        const [nombre, setNombre] = React.useState('');
+        const [categoria, setCategoria] = React.useState('Medicamento');
+        const [sustancia, setSustancia] = React.useState('');
+        const [receta, setReceta] = React.useState(false);
+        const [cantidad, setCantidad] = React.useState('');
+        const [precio, setPrecio] = React.useState('');
+        const [stock, setStock] = React.useState(0);
+        const [descripcion, setDescripcion] = React.useState('');
+        
+        const fetchApi = async () => {
+          const response = await fetch(url);
+          console.log(response);
+          const responseJSON = await response.json()
+          setTodos(responseJSON.data[0])
+          setNombre(responseJSON.data[0].nombre)
+          setCategoria(responseJSON.data[0].categoria)
+          setSustancia(responseJSON.data[0].sustancia_activa)
+          setReceta(responseJSON.data[0].receta_obligatoria)
+          setCantidad(responseJSON.data[0].porcion)
+          setStock(responseJSON.data[0].existencia)
+          setDescripcion(responseJSON.data[0].descripcion)
+          setPrecio(responseJSON.data[0].precio)
+          console.log(responseJSON.data[0])
+        };
+      
+        useEffect(() => {
+          fetchApi();
+        }, []);
+       
     let history = useHistory() 
     const categorias = [
         {
@@ -50,76 +74,18 @@ const Alta = () => {
         },
     ];
 
-    function nombreOnChange(event) {
-        setNombre(event.target.value);
-    }
+      
 
-    function categoriaOnChange(event) {
-        setCategoria(event.target.value);
-    }
 
-    function sustanciaOnChange(event) {
-        setSustancia(event.target.value);
-    }
 
-    function recetaOnChange(event) {
-        setReceta(event.target.checked);
-    }
-
-    function cantidadOnChange(event) {
-        setCantidad(event.target.value);
-    }
-
-    function precioOnChange(event) {
-        setPrecio(event.target.value);
-    }
-
-    function stockOnChange(event) {
-        setStock(event.target.value);
-    }
-
-    function descripcionOnChange(event) {
-        setDescripcion(event.target.value);
-    }
-
-    function onSubmit(e) {
-        e.preventDefault();
-
-        console.log(nombre);
-        console.log(categoria);
-        console.log(sustancia);
-        console.log(receta);
-        console.log(cantidad);
-        console.log(precio);
-        console.log(stock);
-        console.log(descripcion);
-
-        //Llamada POST para agregar el producto
-        axios.post(API_PORTAL_URL + 'new/product',
-            {
-                nombre: nombre,
-                sustancia_activa: sustancia,
-                categoria: categoria,
-                precio: precio,
-                existencia: stock,
-                porcion: cantidad,
-                estatus: '1',
-                receta_obligatoria: receta ? 'S' : 'N',
-                descripcion: descripcion,
-                ruta_imagen: '',
-            }
-        ).then((response) => {
-            console.log(response);
-            history.push("/inicio")
-        });
-    }
-
+ 
     return (
         <div>
             <NavBar></NavBar>
+           
             <Row className='m-5'>
                 <Col className='my-3 mx-5'>
-                    <Form onSubmit={onSubmit}>
+                    <Form >
                         <Row>
                             <Col xs={8}>
                                 <Typography className='labels px-1' variant="h6" gutterBottom >
@@ -127,7 +93,7 @@ const Alta = () => {
                                 </Typography>
                             </Col>
                             <Col>
-                                <Typography className='labels px-1' variant="h6" gutterBottom >
+                                <Typography  typography={nombre} className='labels px-1' variant="h6" gutterBottom >
                                     Categoría
                                 </Typography>
                             </Col>
@@ -139,7 +105,7 @@ const Alta = () => {
                                     placeholder="Nombre del Producto"
                                     variant="outlined"
                                     value={nombre}
-                                    onChange={nombreOnChange}
+                                    disabled={true}
                                 />
                             </Col>
                             <Col>
@@ -149,7 +115,7 @@ const Alta = () => {
                                     variant="outlined"
                                     select
                                     value={categoria}
-                                    onChange={categoriaOnChange}
+                                    disabled={true}
                                 >
                                     {
                                         categorias.map((cat) => (
@@ -176,11 +142,11 @@ const Alta = () => {
                                     placeholder="Ingrese la Sustancia"
                                     variant="outlined"
                                     value={sustancia}
-                                    onChange={sustanciaOnChange}
+                                    disabled={true}
                                 />
                             </Col>
                             <Col className='px-5 py-1'>
-                                <FormControlLabel control={<Checkbox checked={receta} onChange={recetaOnChange} />} label="Receta Obligatoria" />
+                                <FormControlLabel control={<Checkbox checked={receta}  disabled={true}  />} label="Receta Obligatoria" />
                             </Col>
 
                         </Row>
@@ -199,7 +165,7 @@ const Alta = () => {
                                     placeholder="Ingrese la porción del medicamento"
                                     variant="outlined"
                                     value={cantidad}
-                                    onChange={cantidadOnChange}
+                                    disabled={true}
                                 />
                             </Col>
                         </Row>
@@ -223,7 +189,7 @@ const Alta = () => {
                                     placeholder="Ingrese el Precio de Venta"
                                     variant="outlined"
                                     value={precio}
-                                    onChange={precioOnChange}
+                                    disabled={true}
                                 />
                             </Col>
                             <Col>
@@ -233,7 +199,7 @@ const Alta = () => {
                                     variant="outlined"
                                     type="number"
                                     value={stock}
-                                    onChange={stockOnChange}
+                                    disabled={true}
                                 />
                             </Col>
                         </Row>
@@ -254,14 +220,14 @@ const Alta = () => {
                                     multiline
                                     rows={3}
                                     value={descripcion}
-                                    onChange={descripcionOnChange}
+                                    disabled={true}
                                 />
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Button className='btn px-5' type="submit" variant="contained">Agregar</Button>
-                                <Button className='btn mx-5' type="button" onClick={() => history.push("/inicio")}variant="contained"> Cancelar</Button>
+                               
+                                <Button className='btn mx-5' type="button" onClick={() => history.push("/compra")}variant="contained"> Regresar</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -271,4 +237,3 @@ const Alta = () => {
         </div>);
 }
 
-export default Alta;
