@@ -9,8 +9,10 @@ export const Carrito = () =>{
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+   
     const items = JSON.parse(localStorage.getItem('user'));
     if (items) {
+        
      setItems(items);
     }
   }, []);
