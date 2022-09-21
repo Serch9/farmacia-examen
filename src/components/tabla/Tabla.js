@@ -5,9 +5,7 @@ import { useHistory } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
-
 import axios from "axios";
-import { SettingsSystemDaydreamTwoTone } from "@mui/icons-material";
 const colorHeader = { backgroundColor: "#4F83F1", color: "white" };
 
 
@@ -77,7 +75,7 @@ export function Tabla() {
         todos.map(producto =>{
         { var activo = "Inactivo";
           if(
-          producto.estatus =="1"
+          producto.estatus ==="1"
         ){
           activo ="Activo"
         }}

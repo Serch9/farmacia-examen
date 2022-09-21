@@ -46,8 +46,9 @@ const Login = (props) => {
         if (username && password) {
             //Se mandan los datos a la función para iniciar sesión/
             dispatch(login(username, password))
-            .then(() => {
+            .then((respuesta) => {
                 //URL a la que se direccionará al ingresar al sistema, se deberá complementar/
+                console.log(respuesta)
                 props.history.push("/inicio");
                 window.location.reload();
             })

@@ -5,7 +5,7 @@ import { Botones } from "../Botones/Botones";
 import { useHistory } from "react-router-dom";
 import { API_PORTAL_URL } from "../../constants";
 import { Card,Button } from "react-bootstrap";
-
+import { Carrito } from "../Carrito/Carrito";
 const Compra = () => {
   const url = API_PORTAL_URL + "getProductos";
   const [todos, setTodos] = useState();
@@ -54,7 +54,7 @@ const Compra = () => {
           </div>
           
           </div>
-          <div className="col-2">Carrito</div>
+          <div className="col-2"><Carrito></Carrito></div>
         </div>
       </div>
     </div>

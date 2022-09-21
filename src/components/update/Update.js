@@ -38,6 +38,12 @@ const Update = () => {
           setNombre(responseJSON.data[0].nombre)
           setCategoria(responseJSON.data[0].categoria)
           setSustancia(responseJSON.data[0].sustancia_activa)
+          if(responseJSON.data[0].receta_obligatoria==="S"){
+            setReceta(true)
+          }
+          else if(responseJSON.data[0].receta_obligatoria==="N"){
+            setReceta(false)
+          }
           setReceta(responseJSON.data[0].receta_obligatoria)
           setCantidad(responseJSON.data[0].porcion)
           setStock(responseJSON.data[0].existencia)
@@ -142,7 +148,12 @@ const Update = () => {
             history.push("/inicio")
         });
     }
-
+    if(receta==="S"){
+        setReceta(true)
+      }
+      else if(receta==="N"){
+        setReceta(false)
+      }
     return (
         <div>
             <NavBar></NavBar>

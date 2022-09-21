@@ -12,13 +12,14 @@ import  Update from './components/update/Update';
 import Compra from './components/compra/Compra';
 import { VerCompra } from './components/verCompra/VerCompra';
 import { Agregar } from './components/agregar/Agregar';
-
+import CartProvider from './CartContext';
 const App = () => {
 
   return (
     <Router>
       <Switch>
         <Route exact path={["/", "/login"]} component={Login} />
+      <CartProvider>
         <PrivateRoute path="/inicio" component={Inicio} />
         <PrivateRoute path="/alta" component={Alta} />
         <PrivateRoute path="/update/:id" component={Update}/>
@@ -26,7 +27,7 @@ const App = () => {
         <PrivateRoute path="/verCompra/:id" component={VerCompra}/>
         <PrivateRoute path="/compra" component={Compra}/>
         <PrivateRoute path="/agregar/:id" component={Agregar}/>
-     
+        </CartProvider>
       </Switch>
     </Router>
   );

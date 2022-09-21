@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import React, { useState, useEffect, useContext } from "react";
+import { useCartContext } from "../../CartContext";
 import { useHistory, useParams } from "react-router-dom";
 import { API_PORTAL_URL } from "../../constants";
 import NavBar from "../navbar/NavBar";
 import { Botones } from "../Botones/Botones";
-
-
+import { Carrito } from "../Carrito/Carrito";
 export const Agregar = () => {
+  
   const { id } = useParams();
   const [counter, setCounter] = useState(0);
   const [todos, setTodos] = useState();
@@ -18,8 +18,10 @@ export const Agregar = () => {
     console.log(responseJSON.data[0]);
     setTodos(responseJSON.data[0])
   };
-  
-
+  const {addProducto}=useCartContext()
+  const onAdd = ()=>{
+    addProducto(todos,counter)
+  }
  
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export const Agregar = () => {
   const reset = () => {
     setCounter(0);
   };
-
+  let history = useHistory()  
   return (
     <div>
       <NavBar></NavBar>
@@ -54,7 +56,11 @@ export const Agregar = () => {
           <div className="row">
             <div className="col-6 my-2">
             <img src='https://mdbootstrap.com/img/new/slides/041.webp' className='img-fluid shadow-4' alt='...' />
+            <button className="reset  my-2 mx-3 btn btn-primary" onClick={() => history.push("/compra")}>
+                  Regresar
+                </button>
             </div>
+            
             <div className="col-6 my-2">
                 <h2>{!todos ? ``:todos.nombre}</h2>
                 <div className="text-center">${!todos ? ``:todos.precio}</div>
@@ -70,7 +76,7 @@ export const Agregar = () => {
                   -
                 </button>
                 <br></br>
-                <button className="reset my-2 btn btn-primary " >
+                <button onClick={()=>onAdd()} className="reset my-2 btn btn-primary " >
                   Agregar
                 </button>
                 <button className="reset  my-2 mx-3 btn btn-primary" onClick={reset}>
@@ -78,10 +84,11 @@ export const Agregar = () => {
                 </button>
                
               </div>
+           
             </div>
           </div>
         </div>
-        <div className="col-2">Carrito</div>
+        <div className="col-2"><Carrito></Carrito></div>
       </div>
     </div>
   );

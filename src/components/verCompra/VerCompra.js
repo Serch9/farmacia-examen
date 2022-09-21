@@ -38,7 +38,12 @@ export const VerCompra = () => {
           setNombre(responseJSON.data[0].nombre)
           setCategoria(responseJSON.data[0].categoria)
           setSustancia(responseJSON.data[0].sustancia_activa)
-          setReceta(responseJSON.data[0].receta_obligatoria)
+          if(responseJSON.data[0].receta_obligatoria==="S"){
+            setReceta(true)
+          }
+          else if(responseJSON.data[0].receta_obligatoria==="N"){
+            setReceta(false)
+          }
           setCantidad(responseJSON.data[0].porcion)
           setStock(responseJSON.data[0].existencia)
           setDescripcion(responseJSON.data[0].descripcion)
@@ -76,8 +81,12 @@ export const VerCompra = () => {
 
       
 
-
-
+    if(receta==="S"){
+        setReceta(true)
+      }
+      else if(receta==="N"){
+        setReceta(false)
+      }
  
     return (
         <div>
